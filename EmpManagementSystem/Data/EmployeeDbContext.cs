@@ -12,7 +12,6 @@ namespace EmpManagementSystem.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            // Add additional model configurations here if needed
         }
     }
 }

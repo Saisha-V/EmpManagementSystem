@@ -1,0 +1,140 @@
+﻿/* General Styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+    margin-left: 10px;
+}
+
+.container {
+    display: flex;
+    margin: 20px;
+}
+
+aside {
+    width: 20%;
+    border-right: 1px solid #ddd;
+    padding: 10px;
+}
+
+.sidebar {
+    list-style: none;
+    padding: 0;
+}
+
+    .sidebar li {
+        padding: 10px;
+        cursor: pointer;
+    }
+
+        .sidebar li:hover {
+            background-color: #f1f1f1;
+        }
+
+/* Main Content */
+main {
+    width: 80%;
+    padding: 20px;
+}
+
+/* Top Bar */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.search-bar {
+    padding: 10px;
+    width: 70%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.add-button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    .add-button:hover {
+        background-color: #45a049;
+    }
+
+/* Employee Table */
+.employee-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+    .employee-table th,
+    .employee-table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+    }
+
+    .employee-table th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+    }
+
+/* Employee Form */
+.employee-form {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+}
+
+    .employee-form label {
+        font-weight: bold;
+    }
+
+    .employee-form input,
+    .employee-form select {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 100%;
+    }
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cancel-button,
+.save-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.cancel-button {
+    background-color: #f44336;
+    color: white;
+}
+
+.save-button {
+    background-color: #4CAF50;
+    color: white;
+}
