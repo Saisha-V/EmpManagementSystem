@@ -89,7 +89,7 @@
     <div class="container">
         <aside>
             <ul class="sidebar">
-                <li>Employees</li>
+                <li id="employeesLink">Employees</li>
                 <li>Roles</li>
                 <li>Departments</li>
             </ul>
@@ -115,6 +115,7 @@
                     </tr>
                 </thead>
                 <tbody id="employeeTableBody">
+                    <!-- Employee rows will be populated here -->
                 </tbody>
             </table>
         </main>
@@ -140,6 +141,7 @@
     <script>
         let isEditMode = false;
 
+        // Function to fetch employees from the backend and populate the table
         async function fetchEmployees(searchQuery = '') {
             try {
                 const url = searchQuery ? `/api/employees?search=${searchQuery}` : '/api/employees';
@@ -147,31 +149,37 @@
                 const employees = await response.json();
 
                 const tableBody = document.getElementById('employeeTableBody');
-                tableBody.innerHTML = '';
+                tableBody.innerHTML = '';  // Clear existing data
 
-                employees.forEach(employee => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                            <td>${employee.employeeId}</td>
-                            <td>${employee.firstName}</td>
-                            <td>${employee.lastName}</td>
-                            <td>${employee.role || 'N/A'}</td>
-                            <td>${employee.manager || 'N/A'}</td>
-                            <td>${new Date(employee.dateOfJoining).toLocaleDateString()}</td>
-                            <td>
-                                <button class="edit-button" data-id="${employee.employeeId}">Edit</button>
-                                <button class="delete-button" data-id="${employee.employeeId}">Delete</button>
-                            </td>
-                        `;
-                    row.querySelector('.edit-button').addEventListener('click', () => openEditModal(employee));
-                    row.querySelector('.delete-button').addEventListener('click', () => deleteEmployee(employee.employeeId));
-                    tableBody.appendChild(row);
-                });
+                // If there are employees, display them
+                if (employees.length > 0) {
+                    employees.forEach(employee => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                                <td>${employee.employeeId}</td>
+                                <td>${employee.firstName}</td>
+                                <td>${employee.lastName}</td>
+                                <td>${employee.role || 'N/A'}</td>
+                                <td>${employee.manager || 'N/A'}</td>
+                                <td>${new Date(employee.dateOfJoining).toLocaleDateString()}</td>
+                                <td>
+                                    <button class="edit-button" data-id="${employee.employeeId}">Edit</button>
+                                    <button class="delete-button" data-id="${employee.employeeId}">Delete</button>
+                                </td>
+                            `;
+                        row.querySelector('.edit-button').addEventListener('click', () => openEditModal(employee));
+                        row.querySelector('.delete-button').addEventListener('click', () => deleteEmployee(employee.employeeId));
+                        tableBody.appendChild(row);
+                    });
+                } else {
+                    tableBody.innerHTML = '<tr><td colspan="7">No employees found.</td></tr>';
+                }
             } catch (error) {
                 console.error('Error fetching employees:', error);
             }
         }
 
+        // Function to open the edit modal with the selected employee's data
         function openEditModal(employee) {
             isEditMode = true;
             document.getElementById('modalTitle').textContent = 'Edit Employee';
@@ -184,6 +192,7 @@
             document.getElementById('employeeModal').style.display = 'block';
         }
 
+        // Submit form to add or update an employee
         document.getElementById('employeeForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const employee = {
@@ -218,6 +227,7 @@
             }
         });
 
+        // Open the modal for adding a new employee
         document.getElementById('addButton').addEventListener('click', () => {
             isEditMode = false;
             document.getElementById('modalTitle').textContent = 'Add Employee';
@@ -225,10 +235,12 @@
             document.getElementById('employeeModal').style.display = 'block';
         });
 
+        // Close the modal
         document.getElementById('closeModal').addEventListener('click', () => {
             document.getElementById('employeeModal').style.display = 'none';
         });
 
+        // Function to delete an employee
         async function deleteEmployee(employeeId) {
             if (confirm("Are you sure you want to delete this employee?")) {
                 try {
@@ -240,10 +252,17 @@
             }
         }
 
+        // Event listener for search button
         document.getElementById('searchButton').addEventListener('click', () => {
             fetchEmployees(document.getElementById('searchInput').value.trim());
         });
 
+        // Event listener for the "Employees" menu item
+        document.getElementById('employeesLink').addEventListener('click', () => {
+            fetchEmployees();
+        });
+
+        // Load employees on page load
         window.onload = fetchEmployees;
     </script>
 </body>

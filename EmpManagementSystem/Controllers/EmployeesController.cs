@@ -16,6 +16,7 @@ namespace EmpManagementSystem.Controllers
             _context = context;
         }
 
+        // GET: api/employees
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Employee>>> GetEmployees([FromQuery] string search = "")
         {
@@ -29,6 +30,7 @@ namespace EmpManagementSystem.Controllers
             return await query.ToListAsync();
         }
 
+        // GET: api/employees/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Employee>> GetEmployee(int id)
         {
@@ -39,8 +41,7 @@ namespace EmpManagementSystem.Controllers
             return employee;
         }
 
-
-
+        // POST: api/employees
         [HttpPost]
         public async Task<ActionResult<Employee>> AddEmployee(Employee employee)
         {
@@ -49,6 +50,7 @@ namespace EmpManagementSystem.Controllers
             return CreatedAtAction(nameof(GetEmployees), new { id = employee.EmployeeId }, employee);
         }
 
+        // PUT: api/employees/5
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateEmployee(int id, Employee employee)
         {
@@ -59,6 +61,7 @@ namespace EmpManagementSystem.Controllers
             return NoContent();
         }
 
+        // DELETE: api/employees/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEmployee(int id)
         {
@@ -70,5 +73,4 @@ namespace EmpManagementSystem.Controllers
             return NoContent();
         }
     }
-
 }
