@@ -100,44 +100,4 @@ main {
         font-weight: bold;
     }
 
-/* Employee Form */
-.employee-form {
-    display: none;
-    flex-direction: column;
-    gap: 10px;
-}
-
-    .employee-form label {
-        font-weight: bold;
-    }
-
-    .employee-form input,
-    .employee-form select {
-        padding: 8px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        width: 100%;
-    }
-
-.form-actions {
-    display: flex;
-    justify-content: space-between;
-}
-
-.cancel-button,
-.save-button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.cancel-button {
-    background-color: #f44336;
-    color: white;
-}
-
-.save-button {
-    background-color: #4CAF50;
-    color: white;
-}
+  

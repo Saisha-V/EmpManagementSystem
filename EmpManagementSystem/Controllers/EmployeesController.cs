@@ -16,13 +16,30 @@ namespace EmpManagementSystem.Controllers
             _context = context;
         }
 
-      
-
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Employee>>> GetEmployees()
+        public async Task<ActionResult<IEnumerable<Employee>>> GetEmployees([FromQuery] string search = "")
         {
-            return await _context.Employees.ToListAsync();
+            var query = _context.Employees.AsQueryable();
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                query = query.Where(e => e.FirstName.Contains(search) || e.LastName.Contains(search) || e.Role.Contains(search));
+            }
+
+            return await query.ToListAsync();
         }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Employee>> GetEmployee(int id)
+        {
+            var employee = await _context.Employees.FindAsync(id);
+
+            if (employee == null) return NotFound();
+
+            return employee;
+        }
+
+
 
         [HttpPost]
         public async Task<ActionResult<Employee>> AddEmployee(Employee employee)
